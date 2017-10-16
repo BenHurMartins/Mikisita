@@ -1,9 +1,6 @@
 const INITIAL_STATE = {
   pontuacao: 0,
-  numero1: 0,
-  numero2: 0,
   resultado: 0,
-  expressao: ' ',
   adicao: true,
   subtracao: false,
   multiplicacao: false,
@@ -11,17 +8,26 @@ const INITIAL_STATE = {
 }
 
 import { MODIFICA_PONTUACAO,
-         OBTEM_RESULTADO,
-         REALIZA_CONTA_ADICAO } from '../actions/types'
+         MODIFICA_RESULTADO,
+         ADICAO,
+         SUBTRACAO,
+         MULTIPLICACAO,
+         DIVISAO } from '../actions/types'
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case MODIFICA_PONTUACAO:
         return {...state, pontuacao: (action.payload + state.pontuacao)}
-    case OBTEM_RESULTADO:
-        return state.resultado
-    case REALIZA_CONTA_ADICAO:
-        return {...state, resultado: (numero1 + numero2), numero1: numero2, numero2: 0}
+    case MODIFICA_RESULTADO:
+        return {...state, resultado: action.payload }
+    case ADICAO:
+        return {...state, subtracao: false, multiplicacao: false, divisao: false, adicao: true}
+    case SUBTRACAO:
+        return {...state, subtracao: true, multiplicacao: false, divisao: false, adicao: false}
+    case MULTIPLICACAO:
+        return {...state, subtracao: false, multiplicacao: true, divisao: false, adicao: false}
+    case DIVISAO:
+        return {...state, subtracao: false, multiplicacao: false, divisao: true, adicao: false}
     default:
         return state;
   }

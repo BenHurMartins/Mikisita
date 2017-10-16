@@ -19,10 +19,10 @@ class Game extends Component {
                         Alvo >> 19000
                     </Text>
                 </View>
-                <Text style={ styles.textoPrincipal }>Pontuação</Text>
+                <Text style={ styles.textoPrincipal }>Resultado</Text>
                 <View style={ styles.conteinerPontuacao }>
                     <Text style={ styles.textoPontuacao }>
-                      {this.props.pontuacao}
+                      {this.props.resultado}
                     </Text>
                 </View>
             </View>
@@ -32,7 +32,7 @@ class Game extends Component {
                         Timer >> 00:00
                     </Text>
                 </View>
-                <Text style={ styles.textoPrincipal }>Expressão</Text>
+                <Text style={ styles.textoPrincipal }>Pontuação</Text>
                 <View style={ styles.conteinerPontuacao }>
                     <Text style={ styles.textoPontuacao }>
                       {this.props.pontuacao}
@@ -74,10 +74,10 @@ class Game extends Component {
 }
 
 mapStateToProps = state => {
-    const pontuacao = state.GameReducer.pontuacao;
 
     return({
-      pontuacao: pontuacao
+      pontuacao: state.GameReducer.pontuacao,
+      resultado: state.GameReducer.resultado
     })
 }
 

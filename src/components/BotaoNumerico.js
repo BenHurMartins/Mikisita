@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, TouchableHighlight, Text } from 'react-native';
 import { connect } from 'react-redux';
 
-import { modificaPontuacao } from '../actions/GameActions';
+import { modificaPontuacao, modificaResultado } from '../actions/GameActions';
 
 class BotaoNumerico extends Component {
 
@@ -17,11 +17,33 @@ class BotaoNumerico extends Component {
     }
   }
 
+  executaExpressao(valor){
+
+    if (this.props.resultado == 0){
+        var resultado = (this.props.resultado + this.props.valor)
+        this.props.modificaResultado(resultado)
+    } else if (this.props.adicao) {
+        var resultado = (this.props.resultado + this.props.valor)
+        this.props.modificaResultado(resultado)
+    } else if (this.props.subtracao) {
+        var resultado = (this.props.resultado - this.props.valor)
+        this.props.modificaResultado(resultado)
+    } else if(this.props.multiplicacao) {
+        var resultado = (this.props.resultado * this.props.valor)
+        this.props.modificaResultado(resultado)
+    }else if(this.props.divisao) {
+        var resultado = (this.props.resultado / this.props.valor)
+        this.props.modificaResultado(resultado)
+    }
+
+
+  }
+
   render() {
     return(
         <View>
           <TouchableHighlight
-            onPress={ () => this.props.modificaPontuacao(this.props.valor) }
+            onPress={ () => this.executaExpressao(this.props.valor)}
             underlayColor = 'white'
             style={ styles.botaoNumerico }
           >
@@ -33,14 +55,17 @@ class BotaoNumerico extends Component {
 }
 
 mapStateToProps = state => {
-    const pontuacao = state.GameReducer.pontuacao;
 
     return({
-      pontuacao: pontuacao
+      resultado: state.GameReducer.resultado,
+      adicao: state.GameReducer.adicao,
+      subtracao: state.GameReducer.subtracao,
+      multiplicacao: state.GameReducer.multiplicacao,
+      divisao: state.GameReducer.divisao,
     })
 }
 
-export default connect(mapStateToProps, { modificaPontuacao })(BotaoNumerico);
+export default connect(mapStateToProps, { modificaPontuacao, modificaResultado })(BotaoNumerico);
 
   const styles = StyleSheet.create({
     botaoNumerico: {
