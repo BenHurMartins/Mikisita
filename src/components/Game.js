@@ -3,12 +3,26 @@ import { View, StyleSheet, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
-import { modificaPontuacao } from '../actions/GameActions';
+import { novoAlvo, aumentaNivel, novaPontuacao } from '../actions/GameActions';
 
 import BotaoNumerico from './BotaoNumerico';
 import BotaoExpressao from './BotaoExpressao';
 
 class Game extends Component {
+
+  componentWillMount(){
+        this.props.aumentaNivel(this.props.nivel);
+        this.props.novoAlvo(1);
+  }
+
+  componentWillReceiveProps(newProps) {
+    if ((this.props.alvo == newProps.resultado) && (this.props.nivel > 0)) {
+        this.props.aumentaNivel(newProps.nivel);
+        this.props.novoAlvo(newProps.nivel);
+        this.props.novaPontuacao(newProps.movimentos, newProps.nivel)
+    }
+  }
+
   render() {
     return (
       <View style={ styles.container }>
@@ -16,7 +30,7 @@ class Game extends Component {
             <View>
                 <View style={ styles.conteinerSuperior }>
                     <Text style={ styles.textoSuperior }>
-                        Alvo >> 19000
+                        Alvo >> {this.props.alvo}
                     </Text>
                 </View>
                 <Text style={ styles.textoPrincipal }>Resultado</Text>
@@ -29,7 +43,7 @@ class Game extends Component {
             <View>
                 <View style={ styles.conteinerSuperior }>
                     <Text style={ styles.textoSuperior }>
-                        Timer >> 00:00
+                        Movimentos >> {this.props.movimentos}
                     </Text>
                 </View>
                 <Text style={ styles.textoPrincipal }>Pontuação</Text>
@@ -77,11 +91,15 @@ mapStateToProps = state => {
 
     return({
       pontuacao: state.GameReducer.pontuacao,
-      resultado: state.GameReducer.resultado
+      resultado: state.GameReducer.resultado,
+      alvo: state.GameReducer.alvo,
+      nivel: state.GameReducer.nivel,
+      movimentos: state.GameReducer.movimentos
     })
 }
 
-export default connect(mapStateToProps, {})(Game)
+export default connect(mapStateToProps, { novoAlvo, aumentaNivel, novaPontuacao })(Game)
+
 
 const styles = StyleSheet.create({
   container: {
@@ -109,6 +127,7 @@ const styles = StyleSheet.create({
   conteinerPontuacao:{
     borderStyle: 'solid',
     borderWidth: 2,
+    borderRadius: 20,
     width: 150,
     height: 70,
     justifyContent: 'center',

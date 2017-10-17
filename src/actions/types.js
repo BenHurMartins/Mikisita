@@ -4,3 +4,6 @@ export const ADICAO = 'adicao';
 export const SUBTRACAO = 'subtracao';
 export const MULTIPLICACAO = 'multiplicacao';
 export const DIVISAO = 'divisao';
+export const NOVO_ALVO = 'novo_alvo';
+export const MODIFICA_NIVEL = 'modifica_nivel';
+export const MODIFICA_MOVIMENTOS = 'modifica_movimentos';

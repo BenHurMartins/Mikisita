@@ -3,14 +3,10 @@ import { MODIFICA_PONTUACAO,
         ADICAO,
         SUBTRACAO,
         MULTIPLICACAO,
-        DIVISAO } from './types';
-
-export const modificaPontuacao = pontuacao => {
-    return {
-        type: MODIFICA_PONTUACAO,
-        payload: pontuacao
-    }
-}
+        DIVISAO,
+        NOVO_ALVO,
+        MODIFICA_NIVEL,
+        MODIFICA_MOVIMENTOS } from './types';
 
 export const modificaResultado = resultado => {
 
@@ -38,5 +34,44 @@ export const modificaSinal = sinal => {
     return {
       type: DIVISAO
     }
+  }
+}
+
+export const novoAlvo = nivel => {
+
+  var novoAlvo = Math.floor(((nivel * 1000)*(Math.random())));
+
+  return {
+    type: NOVO_ALVO,
+    payload: novoAlvo
+  }
+}
+
+export const aumentaNivel = nivel => {
+
+  nivel = nivel + 1;
+
+  return {
+    type: MODIFICA_NIVEL,
+    payload: nivel
+  }
+}
+
+export const aumentaMovimentos = movimentos => {
+  var novoMovimentos = movimentos + 1;
+
+  return {
+    type: MODIFICA_MOVIMENTOS,
+    payload: novoMovimentos
+  }
+}
+
+export const novaPontuacao = (movimentos, nivel) => {
+
+  var pontuacao = Math.round((nivel * 1000) / movimentos);
+
+  return {
+    type: MODIFICA_PONTUACAO,
+    payload: pontuacao
   }
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, TouchableHighlight, Text } from 'react-native';
 import { connect } from 'react-redux';
 
-import { modificaPontuacao, modificaResultado } from '../actions/GameActions';
+import { aumentaMovimentos, modificaResultado } from '../actions/GameActions';
 
 class BotaoNumerico extends Component {
 
@@ -39,11 +39,16 @@ class BotaoNumerico extends Component {
 
   }
 
+  _rotinaDeAcoes() {
+      this.executaExpressao(this.props.valor);
+      this.props.aumentaMovimentos(this.props.movimentos);
+  }
+
   render() {
     return(
         <View>
           <TouchableHighlight
-            onPress={ () => this.executaExpressao(this.props.valor)}
+            onPress={ () => this._rotinaDeAcoes() }
             underlayColor = 'white'
             style={ styles.botaoNumerico }
           >
@@ -62,10 +67,11 @@ mapStateToProps = state => {
       subtracao: state.GameReducer.subtracao,
       multiplicacao: state.GameReducer.multiplicacao,
       divisao: state.GameReducer.divisao,
+      movimentos: state.GameReducer.movimentos
     })
 }
 
-export default connect(mapStateToProps, { modificaPontuacao, modificaResultado })(BotaoNumerico);
+export default connect(mapStateToProps, { aumentaMovimentos, modificaResultado })(BotaoNumerico);
 
   const styles = StyleSheet.create({
     botaoNumerico: {

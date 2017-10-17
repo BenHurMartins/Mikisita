@@ -4,7 +4,10 @@ const INITIAL_STATE = {
   adicao: true,
   subtracao: false,
   multiplicacao: false,
-  divisao: false
+  divisao: false,
+  alvo: 0,
+  nivel: 0,
+  movimentos: 0
 }
 
 import { MODIFICA_PONTUACAO,
@@ -12,14 +15,17 @@ import { MODIFICA_PONTUACAO,
          ADICAO,
          SUBTRACAO,
          MULTIPLICACAO,
-         DIVISAO } from '../actions/types'
+         DIVISAO,
+         NOVO_ALVO,
+         MODIFICA_NIVEL,
+         MODIFICA_MOVIMENTOS } from '../actions/types'
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case MODIFICA_PONTUACAO:
-        return {...state, pontuacao: (action.payload + state.pontuacao)}
+        return {...state, pontuacao: action.payload}
     case MODIFICA_RESULTADO:
-        return {...state, resultado: action.payload }
+        return {...state, resultado: action.payload}
     case ADICAO:
         return {...state, subtracao: false, multiplicacao: false, divisao: false, adicao: true}
     case SUBTRACAO:
@@ -28,6 +34,12 @@ export default (state = INITIAL_STATE, action) => {
         return {...state, subtracao: false, multiplicacao: true, divisao: false, adicao: false}
     case DIVISAO:
         return {...state, subtracao: false, multiplicacao: false, divisao: true, adicao: false}
+    case NOVO_ALVO:
+        return {...state, alvo: action.payload, resultado: 0, movimentos: 0}
+    case MODIFICA_NIVEL:
+        return {...state, nivel: action.payload}
+    case MODIFICA_MOVIMENTOS:
+        return {...state, movimentos: action.payload}
     default:
         return state;
   }
