@@ -66,9 +66,9 @@ export const aumentaMovimentos = movimentos => {
   }
 }
 
-export const novaPontuacao = (movimentos, nivel) => {
+export const novaPontuacao = (movimentos, nivel, pontuacao) => {
 
-  var pontuacao = Math.round((nivel * 1000) / movimentos);
+  pontuacao += Math.round((nivel * 1000) / movimentos);
 
   return {
     type: MODIFICA_PONTUACAO,

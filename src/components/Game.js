@@ -19,7 +19,7 @@ class Game extends Component {
     if ((this.props.alvo == newProps.resultado) && (this.props.nivel > 0)) {
         this.props.aumentaNivel(newProps.nivel);
         this.props.novoAlvo(newProps.nivel);
-        this.props.novaPontuacao(newProps.movimentos, newProps.nivel)
+        this.props.novaPontuacao(newProps.movimentos, newProps.nivel, newProps.pontuacao)
     }
   }
 
