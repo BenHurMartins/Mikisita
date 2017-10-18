@@ -7,6 +7,13 @@ export default class App extends Component {
     return (
       <View style={ styles.container }>
         <TouchableHighlight
+          onPress={() => Actions.regras()}
+          style={ styles.botao }
+          underlayColor='#AE956C'
+        >
+            <Text style={ styles.textoBotao }>Regras</Text>
+        </TouchableHighlight>
+        <TouchableHighlight
           onPress={() => Actions.game()}
           style={ styles.botao }
           underlayColor='#AE956C'
